@@ -3,118 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026年カウントダウンVC予約</title>
+    <title>ギャンブル製造機 | SYSTEM-99 OPERATIONAL</title>
     <style>
-        :root { --primary: #e94560; --bg: #0f3460; --card: #16213e; --text: #ffffff; }
-        body { background: var(--bg); color: var(--text); font-family: 'Helvetica Neue', Arial, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 20px; text-align: center; }
-        h1 { font-size: 2.5rem; margin-bottom: 0.5rem; text-shadow: 0 0 15px var(--primary); }
-        #timer { font-size: 2rem; font-weight: bold; color: #00d4ff; margin-bottom: 2rem; background: rgba(0,0,0,0.3); padding: 15px 30px; border-radius: 50px; }
-        .form-card { background: var(--card); padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); width: 100%; max-width: 400px; }
-        .input-group { text-align: left; margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-size: 0.9rem; color: #aaa; }
-        input, select { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #30475e; background: #1a1a2e; color: white; box-sizing: border-box; font-size: 1rem; }
-        button { width: 100%; padding: 15px; background: var(--primary); color: white; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 10px; }
-        button:hover { background: #ff4d6d; transform: translateY(-2px); }
-        #after-submit { display: none; margin-top: 25px; border-top: 2px dashed #30475e; padding-top: 25px; animation: fadeIn 0.5s; }
-        .server-btn { display: block; background: #5865F2; padding: 15px; border-radius: 8px; text-decoration: none; color: white; font-weight: bold; margin-top: 15px; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @import url('https://fonts.googleapis.com/css2?family=Anta&family=DotGothic16&family=Share+Tech+Mono&display=swap');
+
+        :root {
+            --danger: #ff003c;
+            --danger-dim: #500010;
+            --terminal-green: #00ff41;
+            --bg: #030303;
+            --card-bg: #0a0a0a;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: #ccc;
+            font-family: 'DotGothic16', sans-serif;
+            margin: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* 走査線エフェクト */
+        .scanline {
+            width: 100%; height: 100%; position: fixed; top: 0; left: 0;
+            background: linear-gradient(to bottom, rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+            background-size: 100% 4px; z-index: 1000; pointer-events: none;
+        }
+
+        header {
+            padding: 120px 20px;
+            text-align: center;
+            border-bottom: 3px double var(--danger);
+            background: radial-gradient(circle at center, #2a0005 0%, #030303 100%);
+            position: relative;
+        }
+
+        h1 { 
+            font-size: clamp(3rem, 10vw, 5rem); 
+            color: #fff; 
+            text-shadow: 0 0 15px var(--danger); 
+            margin: 0; 
+            letter-spacing: -2px;
+        }
+        
+        .version-tag {
+            font-family: 'Share Tech Mono', monospace;
+            color: var(--danger);
+            border: 1px solid var(--danger);
+            padding: 2px 12px;
+            font-size: 0.9rem;
+            margin-top: 15px;
+            display: inline-block;
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+
+        .section-title {
+            color: var(--danger);
+            border-left: 8px solid var(--danger);
+            padding-left: 15px;
+            margin-top: 60px;
+            font-size: 1.8rem;
+            letter-spacing: 3px;
+            background: linear-gradient(90deg, var(--danger-dim), transparent);
+        }
+
+        /* 導入手順のカード化 */
+        .setup-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .step-card {
+            background: var(--card-bg);
+            border: 1px solid #222;
+            padding: 30px;
+            position: relative;
+            transition: 0.3s;
+        }
+
+        .step-card:hover {
+            border-color: var(--danger);
+            background: #111;
+        }
+
+        .step-card h3 { color: #fff; margin-top: 0; font-size: 1.3rem; }
+        .step-card .num { 
+            font-family: 'Anta', sans-serif; 
+            font-size: 2.5rem; 
+            color: rgba(255, 0, 61, 0.15); 
+            position: absolute; 
+            top: 10px; right: 20px; 
+        }
+
+        /* 運用マニュアル表 */
+        .manual-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+            background: #050505;
+        }
+
+        .manual-table th, .manual-table td {
+            border: 1px solid #222;
+            padding: 20px;
+            text-align: left;
+        }
+
+        .manual-table th { color: var(--danger); font-weight: bold; background: #0f0f0f; }
+
+        .cmd {
+            background: #000;
+            color: var(--terminal-green);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-family: 'Share Tech Mono', monospace;
+            border: 1px solid var(--terminal-green);
+            font-size: 0.95rem;
+        }
+
+        /* 招待ボタン：パルスアニメーション */
+        .invite-btn {
+            display: block;
+            width: fit-content;
+            margin: 80px auto;
+            color: #fff;
+            background: var(--danger);
+            text-decoration: none;
+            padding: 25px 80px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            box-shadow: 0 0 20px var(--danger);
+            animation: pulse 2s infinite;
+            transition: 0.3s;
+            border: none;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 0, 61, 0.7); }
+            70% { box-shadow: 0 0 0 25px rgba(255, 0, 61, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 0, 61, 0); }
+        }
+
+        .invite-btn:hover {
+            transform: scale(1.05);
+            filter: brightness(1.3);
+        }
+
+        footer {
+            text-align: center;
+            color: #444;
+            padding: 100px 20px;
+            font-size: 0.8rem;
+            letter-spacing: 5px;
+            border-top: 1px solid #111;
+        }
+
+        .log-line { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; color: #333; }
     </style>
 </head>
 <body>
 
-    <h1>🌅 2026まで</h1>
-    <div id="timer">Loading...</div>
+    <div class="scanline"></div>
 
-    <div class="form-card">
-        <div id="form-content">
-            <div class="input-group">
-                <label>Discordユーザー名</label>
-                <input type="text" id="username" placeholder="...">
+    <header>
+        <div class="log-line">INIT_SEQUENCE_SUCCESSFUL... SYSTEM_LOADED</div>
+        <h1>ギャンブル製造機</h1>
+        <div class="version-tag">STABLE PROTOCOL v9.9.2</div>
+    </header>
+
+    <div class="container">
+        
+        <h2 class="section-title">導入プロトコル <span style="font-size: 0.8rem; vertical-align: middle;">[ADMIN ONLY]</span></h2>
+        
+        <div class="setup-grid">
+            <div class="step-card">
+                <span class="num">01</span>
+                <h3>リンク承認</h3>
+                <p>「マシンを起動する」よりBotを招待。管理者権限を付与し、コア・システムの接続を許可してください。</p>
             </div>
-            <div class="input-group">
-                <label>DiscordユーザーID</label>
-                <input type="text" id="userid" placeholder="...">
+            <div class="step-card">
+                <span class="num">02</span>
+                <h3>モジュール展開</h3>
+                <p><span class="cmd">/bank</span>, <span class="cmd">/shop</span>, <span class="cmd">/locker_deploy</span> を各チャンネルで実行し、各種インターフェースを設置。</p>
             </div>
-            <div class="input-group">
-                <label>参加希望時間</label>
-                <select id="timeslot">
-                    <option value="23:00〜01:00 (カウントダウン中心)">23:00〜01:00 (カウントダウン中心)</option>
-                    <option value="21:00〜 (早めに集まりたい)">21:00〜 (早めに集まりたい)</option>
-                    <option value="00:00〜 (年明けから参加)">00:00〜 (年明けから参加)</option>
-                    <option value="未定・調整中">未定・調整中</option>
-                </select>
+            <div class="step-card">
+                <span class="num">03</span>
+                <h3>権限昇格</h3>
+                <p>バッジ同期（名称変更）を有効化するため、ロール設定で「ギャンブル製造機」をメンバーより上位へ配置してください。</p>
             </div>
-            <button onclick="sendToDiscord()">参加を予約する</button>
         </div>
 
-        <div id="after-submit">
-            <p style="color: #00ffcc; font-size: 1.2rem; margin: 0;">✅ 予約完了しました！</p>
-            <p style="font-size: 0.9rem; color: #ccc;">Discordサーバーへの招待コード：**Vdyb9drZhK**</p>
-            <p>このままサーバーに参加しますか？</p>
-            <a href="https://discord.gg/Vdyb9drZhK" class="server-btn" target="_blank">
-                公式サーバーに参加する
-            </a>
-        </div>
+        <h2 class="section-title">運用マニュアル <span style="font-size: 0.8rem; vertical-align: middle;">[USER GUIDE]</span></h2>
+
+        <table class="manual-table">
+            <thead>
+                <tr>
+                    <th>アクション</th>
+                    <th>プロトコル (コマンド等)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>スロット</strong></td>
+                    <td><span class="cmd">/slot</span>でスロットをして草をためよう </td>
+                </tr>
+                <tr>
+                    <td><strong>ルーレット</strong></td>
+                    <td><span class="cmd">/roulette </span> 1時間に1回の最大1万草が当たる豪華ルーレットを回そう</td>
+                </tr>
+                <tr>
+                    <td><strong>競馬</strong></td>
+                    <td><span class="cmd">/keiba</span>最大のゲーム。3人以上でプレイする競馬を楽しもう。</td>
+                </tr>
+                <tr>
+                    <td><strong>コインげーむ</strong></td>
+                    <td><span class="cmd">/coin_flip</span>このbot最大のゲーム。二分の一で賭け金額が倍になる</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a href="https://discord.com/oauth2/authorize?client_id=1457588402990874792&permissions=8&integration_type=0&scope=bot+applications.commands" class="invite-btn">
+            マシンを起動する
+        </a>
+
+        <footer>
+            <p>PROJECT_GYANBURU // UNIT_99 // EST 2026</p>
+            <p>さあ、ギャンブルをしよう</p>
+        </footer>
     </div>
 
-    <script>
-        // カウントダウンロジック
-        function updateTimer() {
-            const target = new Date('January 1, 2026 00:00:00').getTime();
-            const now = new Date().getTime();
-            const diff = target - now;
-            if (diff < 0) {
-                document.getElementById('timer').innerText = "HAPPY NEW YEAR 2026!";
-                return;
-            }
-            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const s = Math.floor((diff % (1000 * 60)) / 1000);
-            document.getElementById('timer').innerText = `${d}日 ${h}h ${m}m ${s}s`;
-        }
-        setInterval(updateTimer, 1000);
-
-        // Webhook送信ロジック
-        async function sendToDiscord() {
-            const name = document.getElementById('username').value;
-            const uid = document.getElementById('userid').value;
-            const time = document.getElementById('timeslot').value;
-            const webhookUrl = "https://discord.com/api/webhooks/1454386968887824457/jyDaRACr3jNyi-PuL7RToYa83LNx-yvI7h-VA53W52rrCKeUEOLwRCAPl7BkOi3KF4Oo";
-
-            if(!name || !uid) return alert('入力漏れがあります。');
-
-            const payload = {
-                embeds: [{
-                    title: "📅 2026年カウントダウン参加予約",
-                    color: 15271860,
-                    fields: [
-                        { name: "ユーザー名", value: `\`${name}\``, inline: true },
-                        { name: "ユーザーID", value: `\`${uid}\``, inline: true },
-                        { name: "希望時間", value: time }
-                    ],
-                    footer: { text: "2026 Reservation System" },
-                    timestamp: new Date()
-                }]
-            };
-
-            try {
-                const response = await fetch(webhookUrl, {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify(payload)
-                });
-
-                if(response.ok) {
-                    document.getElementById('form-content').style.display = 'none';
-                    document.getElementById('after-submit').style.display = 'block';
-                } else {
-                    alert('送信に失敗しました。URLを確認してください。');
-                }
-            } catch (err) {
-                alert('エラーが発生しました。');
-            }
-        }
-    </script>
 </body>
 </html>
