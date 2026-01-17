@@ -3,240 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ギャンブラー製造機 | SYSTEM-99 OPERATIONAL</title>
+    <title>ギャンブラー製造機 | OFFICIAL PROTOCOL</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Anta&family=DotGothic16&family=Share+Tech+Mono&display=swap');
 
         :root {
             --danger: #ff003c;
-            --danger-dim: #500010;
-            --terminal-green: #00ff41;
+            --danger-glow: rgba(255, 0, 60, 0.6);
             --bg: #030303;
-            --card-bg: #0a0a0a;
+            --accent: #00f3ff;
+            --terminal: #00ff41;
         }
 
         body {
             background-color: var(--bg);
-            color: #ccc;
+            background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%),
+                              linear-gradient(90deg, rgba(255, 0, 0, 0.05), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.05));
+            background-size: 100% 4px, 100% 100%;
+            color: #eee;
             font-family: 'DotGothic16', sans-serif;
             margin: 0;
-            line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* 走査線エフェクト */
-        .scanline {
-            width: 100%; height: 100%; position: fixed; top: 0; left: 0;
-            background: linear-gradient(to bottom, rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
-            background-size: 100% 4px; z-index: 1000; pointer-events: none;
-        }
-
         header {
-            padding: 120px 20px;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            border-bottom: 3px double var(--danger);
-            background: radial-gradient(circle at center, #2a0005 0%, #030303 100%);
-            position: relative;
+            background: radial-gradient(circle at center, #2a0005 0%, transparent 70%);
+            border-bottom: 2px solid var(--danger);
         }
 
-        h1 { 
-            font-size: clamp(3rem, 10vw, 5rem); 
-            color: #fff; 
-            text-shadow: 0 0 15px var(--danger); 
-            margin: 0; 
+        h1 {
+            font-size: clamp(3rem, 10vw, 5rem);
+            text-shadow: 0 0 20px var(--danger);
+            margin: 0;
             letter-spacing: -2px;
         }
-        
-        .version-tag {
+
+        .hero-sub {
             font-family: 'Share Tech Mono', monospace;
             color: var(--danger);
-            border: 1px solid var(--danger);
-            padding: 2px 12px;
-            font-size: 0.9rem;
-            margin-top: 15px;
-            display: inline-block;
+            letter-spacing: 5px;
+            margin-top: 10px;
         }
 
-        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 60px 20px; }
 
-        .section-title {
-            color: var(--danger);
-            border-left: 8px solid var(--danger);
-            padding-left: 15px;
-            margin-top: 60px;
-            font-size: 1.8rem;
-            letter-spacing: 3px;
-            background: linear-gradient(90deg, var(--danger-dim), transparent);
-        }
-
-        /* 導入手順のカード化 */
-        .setup-grid {
+        .feature-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
         }
 
-        .step-card {
-            background: var(--card-bg);
-            border: 1px solid #222;
+        .card {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid #333;
             padding: 30px;
             position: relative;
             transition: 0.3s;
         }
 
-        .step-card:hover {
+        .card:hover {
             border-color: var(--danger);
-            background: #111;
+            box-shadow: 0 0 20px var(--danger-glow);
+            transform: translateY(-5px);
         }
 
-        .step-card h3 { color: #fff; margin-top: 0; font-size: 1.3rem; }
-        .step-card .num { 
-            font-family: 'Anta', sans-serif; 
-            font-size: 2.5rem; 
-            color: rgba(255, 0, 61, 0.15); 
-            position: absolute; 
-            top: 10px; right: 20px; 
-        }
+        .card h3 { color: var(--danger); margin-top: 0; border-bottom: 1px solid #444; padding-bottom: 10px; }
 
-        /* 運用マニュアル表 */
-        .manual-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 30px;
-            background: #050505;
-        }
-
-        .manual-table th, .manual-table td {
-            border: 1px solid #222;
-            padding: 20px;
-            text-align: left;
-        }
-
-        .manual-table th { color: var(--danger); font-weight: bold; background: #0f0f0f; }
-
-        .cmd {
+        .system-log {
             background: #000;
-            color: var(--terminal-green);
-            padding: 4px 10px;
-            border-radius: 4px;
+            border: 1px solid var(--terminal);
+            color: var(--terminal);
+            padding: 20px;
             font-family: 'Share Tech Mono', monospace;
-            border: 1px solid var(--terminal-green);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+            margin: 40px 0;
+            box-shadow: inset 0 0 10px var(--terminal);
         }
 
-        /* 招待ボタン：パルスアニメーション */
-        .invite-btn {
-            display: block;
-            width: fit-content;
-            margin: 80px auto;
-            color: #fff;
-            background: var(--danger);
-            text-decoration: none;
-            padding: 25px 80px;
-            font-size: 1.8rem;
-            font-weight: bold;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            box-shadow: 0 0 20px var(--danger);
-            animation: pulse 2s infinite;
-            transition: 0.3s;
-            border: none;
-        }
+        .highlight { color: var(--accent); font-weight: bold; }
 
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(255, 0, 61, 0.7); }
-            70% { box-shadow: 0 0 0 25px rgba(255, 0, 61, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 0, 61, 0); }
-        }
-
-        .invite-btn:hover {
-            transform: scale(1.05);
-            filter: brightness(1.3);
-        }
-
-        footer {
+        .invite-section {
             text-align: center;
-            color: #444;
-            padding: 100px 20px;
-            font-size: 0.8rem;
-            letter-spacing: 5px;
-            border-top: 1px solid #111;
+            padding: 100px 0;
+            background: linear-gradient(to bottom, transparent, #150000);
         }
 
-        .log-line { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; color: #333; }
+        .btn {
+            background: var(--danger);
+            color: white;
+            padding: 25px 60px;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+            box-shadow: 0 0 20px var(--danger);
+            display: inline-block;
+            transition: 0.3s;
+            clip-path: polygon(5% 0, 100% 0, 95% 100%, 0% 100%);
+        }
+
+        .btn:hover { transform: scale(1.1); filter: brightness(1.2); }
+
+        footer { text-align: center; padding: 40px; color: #555; border-top: 1px solid #222; }
     </style>
 </head>
 <body>
 
-    <div class="scanline"></div>
+<header>
+    <div style="font-family: 'Share Tech Mono'; opacity: 0.5;">STATUS: OPERATIONAL</div>
+    <h1>ギャンブラー製造機</h1>
+    <p class="hero-sub">GAMBLER MANUFACTURING UNIT-99</p>
+</header>
 
-    <header>
-        <div class="log-line">INIT_SEQUENCE_SUCCESSFUL... SYSTEM_LOADED</div>
-        <h1>ギャンブル製造機</h1>
-        <div class="version-tag">STABLE PROTOCOL v9.9.2</div>
-    </header>
-
-    <div class="container">
-        
-        <h2 class="section-title">導入プロトコル <span style="font-size: 0.8rem; vertical-align: middle;">[ADMIN ONLY]</span></h2>
-        
-        <div class="setup-grid">
-            <div class="step-card">
-                <span class="num">01</span>
-                <h3>リンク承認</h3>
-                <p>「マシンを起動する」よりBotを招待。管理者権限を付与し、コア・システムの接続を許可してください。</p>
-            </div>
-            <div class="step-card">
-                <span class="num">02</span>
-                <h3>モジュール展開</h3>
-                <p><span class="cmd">/bank</span>, <span class="cmd">/shop</span>, <span class="cmd">/locker_deploy</span> を各チャンネルで実行し、各種インターフェースを設置。</p>
-            </div>
-            <div class="step-card">
-                <span class="num">03</span>
-                <h3>権限昇格</h3>
-                <p>バッジ同期（名称変更）を有効化するため、ロール設定で「ギャンブル製造機」をメンバーより上位へ配置してください。</p>
-            </div>
-        </div>
-
-        <h2 class="section-title">運用マニュアル <span style="font-size: 0.8rem; vertical-align: middle;">[USER GUIDE]</span></h2>
-
-        <table class="manual-table">
-            <thead>
-                <tr>
-                    <th>アクション</th>
-                    <th>プロトコル (コマンド等)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>スロット</strong></td>
-                    <td><span class="cmd">/slot</span>でスロットをして草をためよう </td>
-                </tr>
-                <tr>
-                    <td><strong>ルーレット</strong></td>
-                    <td><span class="cmd">/roulette </span> 1時間に1回の最大1万草が当たる豪華ルーレットを回そう</td>
-                </tr>
-                <tr>
-                    <td><strong>競馬</strong></td>
-                    <td><span class="cmd">/keiba</span>最大のゲーム。3人以上でプレイする競馬を楽しもう。</td>
-                </tr>
-                <tr>
-                    <td><strong>コインげーむ</strong></td>
-                    <td><span class="cmd">/coin_flip</span>このbot最大のゲーム。二分の一で賭け金額が倍になる</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <a href="https://discord.com/oauth2/authorize?client_id=1457588402990874792&permissions=8&integration_type=0&scope=bot+applications.commands" class="invite-btn">
-            マシンを起動する
-        </a>
-
-        <footer>
-            <p>PROJECT_GYANBURU // UNIT_99 // EST 2026</p>
-            <p>さあ、ギャンブルをしよう</p>
-        </footer>
+<div class="container">
+    <div class="system-log">
+        > INITIALIZING GYANBURU-CORE... [OK]<br>
+        > MAPPING SERVER ECONOMY... [OK]<br>
+        > TARGET ACQUIRED: ALL USERS IN THIS SERVER
     </div>
+
+    <h2>■ 製造機（Bot）の主要プロトコル</h2>
+    <p>「ギャンブラー製造機」は、メンバーのチャットを「軍資金」に変え、絶え間ない快楽と格差を提供するサーバー活性化Botです。</p>
+
+    <div class="feature-grid">
+        <div class="card">
+            <h3>1. 欲望の自動生成</h3>
+            <p>チャットするだけで<span class="highlight">10〜30草</span>が自動蓄積。10%の確率で<span class="highlight">500草のボーナス</span>が発生し、無意識のうちに賭場の入り口へ誘います。</p>
+        </div>
+        <div class="card">
+            <h3>2. リアルタイム・カジノ</h3>
+            <p>スロット、ルーレット、競馬。全てのゲームが<span class="highlight">1秒刻みで動く演出</span>を搭載。チャット欄は一瞬で熱狂のスタジアムに変わります。</p>
+        </div>
+        <div class="card">
+            <h3>3. 格差と称号の同期</h3>
+            <p>稼いだ草で「Level 1」から「VIP」まで昇格。購入したバッジ（💎🥇等）は、<span class="highlight">Discordのニックネームに自動同期</span>され、富を誇示できます。</p>
+        </div>
+        <div class="card">
+            <h3>4. 地下労働システム</h3>
+            <p>破産しても終わりではありません。外部の採掘サイトで働くことで<span class="highlight">3,000草の報酬</span>を得て、何度でも修羅場に復帰可能です。</p>
+        </div>
+    </div>
+
+    <h2>■ 導入フロー（管理者用）</h2>
+    <div class="card">
+        <p>1. <strong>Botを招待:</strong> 管理者権限を付与して本機を接続。</p>
+        <p>2. <strong>インフラ展開:</strong> <code>/bank_deploy</code>, <code>/shop_deploy</code>, <code>/locker_deploy</code> を実行。</p>
+        <p>3. <strong>権限の確立:</strong> 称号同期のため、Botのロールをメンバーより上に配置。</p>
+    </div>
+</div>
+
+<div class="invite-section">
+    <a href="https://discord.com/oauth2/authorize?client_id=1457588402990874792&permissions=8&integration_type=0&scope=bot+applications.commands" class="btn">マシンを起動する</a>
+</div>
+
+<footer>
+    &copy; 2026 PROJECT_GYANBURU. さあ、理性を捨ててギャンブルをしよう。
+</footer>
 
 </body>
 </html>
