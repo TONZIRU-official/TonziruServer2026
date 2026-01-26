@@ -3,167 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ギャンブラー製造機 | OFFICIAL PROTOCOL</title>
+    <title>Royal Pentagon Casino Bot | 公式サイト</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Anta&family=DotGothic16&family=Share+Tech+Mono&display=swap');
-
         :root {
-            --danger: #ff003c;
-            --danger-glow: rgba(255, 0, 60, 0.6);
-            --bg: #030303;
-            --accent: #00f3ff;
-            --terminal: #00ff41;
+            --primary: #5865F2; /* Discord Blue */
+            --accent: #00ffff;
+            --dark: #0a0a0c;
+            --card-bg: #1a1a1e;
         }
 
         body {
-            background-color: var(--bg);
-            background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%),
-                              linear-gradient(90deg, rgba(255, 0, 0, 0.05), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.05));
-            background-size: 100% 4px, 100% 100%;
-            color: #eee;
-            font-family: 'DotGothic16', sans-serif;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--dark);
+            color: white;
             margin: 0;
-            overflow-x: hidden;
+            line-height: 1.6;
         }
 
         header {
-            height: 80vh;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            background: radial-gradient(circle at center, #2a0005 0%, transparent 70%);
-            border-bottom: 2px solid var(--danger);
+            background: linear-gradient(135deg, #0a0a0c 0%, #1a1a2e 100%);
         }
 
-        h1 {
-            font-size: clamp(3rem, 10vw, 5rem);
-            text-shadow: 0 0 20px var(--danger);
-            margin: 0;
-            letter-spacing: -2px;
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            color: var(--accent);
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
         }
 
         .hero-sub {
-            font-family: 'Share Tech Mono', monospace;
-            color: var(--danger);
-            letter-spacing: 5px;
-            margin-top: 10px;
+            font-size: 1.2rem;
+            opacity: 0.8;
+            max-width: 600px;
         }
 
-        .container { max-width: 1000px; margin: 0 auto; padding: 60px 20px; }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin: 40px 0;
-        }
-
-        .card {
-            background: rgba(20, 20, 20, 0.8);
-            border: 1px solid #333;
-            padding: 30px;
-            position: relative;
+        .btn-invite {
+            margin-top: 30px;
+            padding: 15px 40px;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
             transition: 0.3s;
         }
 
-        .card:hover {
-            border-color: var(--danger);
-            box-shadow: 0 0 20px var(--danger-glow);
+        .btn-invite:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(88, 101, 242, 0.5);
+        }
+
+        .section {
+            padding: 80px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid #333;
+            transition: 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: var(--accent);
             transform: translateY(-5px);
         }
 
-        .card h3 { color: var(--danger); margin-top: 0; border-bottom: 1px solid #444; padding-bottom: 10px; }
-
-        .system-log {
-            background: #000;
-            border: 1px solid var(--terminal);
-            color: var(--terminal);
-            padding: 20px;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.9rem;
-            margin: 40px 0;
-            box-shadow: inset 0 0 10px var(--terminal);
+        .feature-card i {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 15px;
         }
 
-        .highlight { color: var(--accent); font-weight: bold; }
+        .feature-card h3 {
+            margin-top: 0;
+        }
 
-        .invite-section {
+        footer {
             text-align: center;
-            padding: 100px 0;
-            background: linear-gradient(to bottom, transparent, #150000);
+            padding: 40px;
+            font-size: 0.9rem;
+            opacity: 0.5;
         }
-
-        .btn {
-            background: var(--danger);
-            color: white;
-            padding: 25px 60px;
-            text-decoration: none;
-            font-size: 1.5rem;
-            font-weight: bold;
-            box-shadow: 0 0 20px var(--danger);
-            display: inline-block;
-            transition: 0.3s;
-            clip-path: polygon(5% 0, 100% 0, 95% 100%, 0% 100%);
-        }
-
-        .btn:hover { transform: scale(1.1); filter: brightness(1.2); }
-
-        footer { text-align: center; padding: 40px; color: #555; border-top: 1px solid #222; }
     </style>
 </head>
 <body>
 
 <header>
-    <div style="font-family: 'Share Tech Mono'; opacity: 0.5;">STATUS: OPERATIONAL</div>
-    <h1>ギャンブラー製造機</h1>
-    <p class="hero-sub">GAMBLER MANUFACTURING UNIT-99</p>
+    <h1 class="hero-title">Royal Pentagon</h1>
+    <p class="hero-sub">Discordサーバーを、最高級のカジノセンターへ。<br>最新鋭の5リールスロットと自動追尾パネルを搭載。</p>
+    <a href="#" class="btn-invite"><i class="fab fa-discord"></i> サーバーに招待する</a>
 </header>
 
-<div class="container">
-    <div class="system-log">
-        > INITIALIZING GYANBURU-CORE... [OK]<br>
-        > MAPPING SERVER ECONOMY... [OK]<br>
-        > TARGET ACQUIRED: ALL USERS IN THIS SERVER
-    </div>
-
-    <h2>■ 製造機（Bot）の主要プロトコル</h2>
-    <p>「ギャンブラー製造機」は、メンバーのチャットを「軍資金」に変え、絶え間ない快楽と格差を提供するサーバー活性化Botです。</p>
-
-    <div class="feature-grid">
-        <div class="card">
-            <h3>1. 欲望の自動生成</h3>
-            <p>チャットするだけで<span class="highlight">10〜30草</span>が自動蓄積。10%の確率で<span class="highlight">500草のボーナス</span>が発生し、無意識のうちに賭場の入り口へ誘います。</p>
+<div class="section">
+    <h2 style="text-align: center; margin-bottom: 50px;">Main Features</h2>
+    <div class="features">
+        <div class="feature-card">
+            <i class="fas fa-slot-machine"></i> <h3>🎰 5-REEL SLOT</h3>
+            <p>アニメーション演出付きの本格スロット。ジャックポットで一攫千金を狙え。</p>
         </div>
-        <div class="card">
-            <h3>2. リアルタイム・カジノ</h3>
-            <p>スロット、ルーレット、競馬。全てのゲームが<span class="highlight">1秒刻みで動く演出</span>を搭載。チャット欄は一瞬で熱狂のスタジアムに変わります。</p>
+        <div class="feature-card">
+            <i class="fas fa-coins"></i>
+            <h3>🪙 COIN TOSS</h3>
+            <p>表か裏か。シンプルながらも熱い、2択の勝負がここにある。</p>
         </div>
-        <div class="card">
-            <h3>3. 格差と称号の同期</h3>
-            <p>稼いだ草で「Level 1」から「VIP」まで昇格。購入したバッジ（💎🥇等）は、<span class="highlight">Discordのニックネームに自動同期</span>され、富を誇示できます。</p>
-        </div>
-        <div class="card">
-            <h3>4. 地下労働システム</h3>
-            <p>破産しても終わりではありません。外部の採掘サイトで働くことで<span class="highlight">3,000草の報酬</span>を得て、何度でも修羅場に復帰可能です。</p>
+        <div class="feature-card">
+            <i class="fas fa-sync-alt"></i>
+            <h3>🔄 SMART PANEL</h3>
+            <p>30秒ごとに自動追尾。カジノパネルが常にチャットの最下部をキープします。</p>
         </div>
     </div>
-
-    <h2>■ 導入フロー（管理者用）</h2>
-    <div class="card">
-        <p>1. <strong>Botを招待:</strong> 管理者権限を付与して本機を接続。</p>
-        <p>2. <strong>インフラ展開:</strong> <code>/bank_deploy</code>, <code>/shop_deploy</code>, <code>/locker_deploy</code> を実行。</p>
-        <p>3. <strong>権限の確立:</strong> 称号同期のため、Botのロールをメンバーより上に配置。</p>
-    </div>
-</div>
-
-<div class="invite-section">
-    <a href="https://discord.com/oauth2/authorize?client_id=1457588402990874792&permissions=8&integration_type=0&scope=bot+applications.commands" class="btn">マシンを起動する</a>
 </div>
 
 <footer>
-    &copy; 2026 PROJECT_GYANBURU. さあ、理性を捨ててギャンブルをしよう。
+    &copy; 2026 Royal Pentagon Casino Bot. All rights reserved.
 </footer>
 
 </body>
