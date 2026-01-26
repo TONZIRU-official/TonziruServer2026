@@ -11,12 +11,12 @@
         :root {
             --primary-discord-blue: #5865F2;
             --secondary-dark-blue: #4245F0;
-            --accent-cyan: #00FFFF; /* 明るいシアン */
-            --dark-bg: #121212; /* 深い黒に近い背景 */
-            --card-bg: #1e1e1e; /* カードの背景 */
+            --accent-cyan: #00FFFF;
+            --dark-bg: #0a0a0c;
+            --card-bg: #16161a;
             --text-light: #f0f0f0;
             --text-muted: #aaaaaa;
-            --border-color: #333333;
+            --border-color: #2a2a2e;
         }
 
         body {
@@ -25,10 +25,10 @@
             color: var(--text-light);
             margin: 0;
             line-height: 1.7;
-            overflow-x: hidden; /* 横スクロール防止 */
+            overflow-x: hidden;
         }
 
-        /* ヘッダー・ヒーローセクション */
+        /* --- 強化されたヒーローセクション --- */
         header {
             height: 100vh;
             display: flex;
@@ -36,228 +36,217 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            background: linear-gradient(135deg, var(--dark-bg) 0%, #1a237e 100%); /* 深い青へのグラデーション */
+            background: radial-gradient(circle at center, #1a237e 0%, var(--dark-bg) 70%);
             position: relative;
             overflow: hidden;
             padding: 20px;
-            box-sizing: border-box;
         }
 
+        /* 背景のアニメーション装飾 */
         header::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXc0NjggY2FyZWZ1bGx5ICBiYXNlNjQgICJhIGdyYXktd2hpdGUgcmFpbmJvdyIgc2VyZmFjZSAiICAiIDogICAgIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxkZWZzPgogIDxwYXR0ZXJuIGlkPSJncmlkIiB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgPHBhdGggZD0iTSAwIDAgTCAwIDYwIEwgNjAgNjAgTCA2MCAwIFogTTAgMCBMIDYwIDYwIFogTTAgNjAgTCA2MCAwIFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzIwMjAyMCIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgPC9wYXR0ZXJuPgogIDxwYXR0ZXJuIGlkPSJkaWFtb25kIiB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgPHBhdGggZD0iTSAxMCAwIEwgMjAgMTAgTCAxMCAyMCBMIDAgMTAgWiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMjAyMDIwIiBzdHJva2Utd2lkdGg9IjEiLz4KICA8L3BhdHRlcm4+CiAgPHBhdHRlcm4gaWQ9ImNpcmNsZSIgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KICAgIDxjaXJjbGUgY3g9IjUiIGN5PSI1IiByPSIyIiBmaWxsPSJub25lIiBzdHJva2U9IiMyMDYwMjAiIHN0cm9rZS13aWR0aD0iMSIvPgogIDwvcGF0dGVybj4KPC9kZWZzPgo8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+CjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZGlhbW9uZikiLz4KPHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNjaXJjbGUpIi8+Cjwvc3ZnPg==') no-repeat center center;
-            background-size: cover;
-            opacity: 0.05; /* 背景パターンを控えめに */
-            animation: backgroundPan 60s linear infinite; /* 背景をゆっくり動かす */
+            width: 200%;
+            height: 200%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            transform: perspective(500px) rotateX(60deg);
+            bottom: -50%;
+            animation: gridMove 20s linear infinite;
         }
 
-        @keyframes backgroundPan {
-            0% { background-position: 0% 0%; }
-            100% { background-position: 100% 100%; }
+        @keyframes gridMove {
+            0% { transform: perspective(500px) rotateX(60deg) translateY(0); }
+            100% { transform: perspective(500px) rotateX(60deg) translateY(50px); }
         }
 
         .hero-content {
-            z-index: 1;
+            z-index: 10;
             position: relative;
-            animation: fadeInScale 1.5s ease-out;
+        }
+
+        /* メインシンボル：五角形と王冠 */
+        .main-symbol {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            margin: 0 auto 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pentagon-shape {
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            background: transparent;
+            border: 3px solid var(--accent-cyan);
+            clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+            animation: rotatePentagon 15s linear infinite;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+        }
+
+        /* 外側の光るリング */
+        .symbol-ring {
+            position: absolute;
+            width: 210px;
+            height: 210px;
+            border: 1px dashed var(--accent-cyan);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: rotatePentagon 20s linear infinite reverse;
+        }
+
+        .crown-icon {
+            font-size: 4rem;
+            color: var(--accent-cyan);
+            filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.8));
+            animation: floatCrown 3s ease-in-out infinite;
+        }
+
+        @keyframes rotatePentagon {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes floatCrown {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-15px) scale(1.1); }
         }
 
         .hero-title {
             font-family: 'Montserrat', sans-serif;
-            font-size: 4.5rem;
+            font-size: 5rem;
             margin-bottom: 10px;
-            color: var(--accent-cyan);
-            text-shadow: 0 0 30px rgba(0, 255, 255, 0.6), 0 0 50px rgba(0, 255, 255, 0.3);
-            letter-spacing: 2px;
+            color: white;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+            letter-spacing: 5px;
             font-weight: 700;
+            text-transform: uppercase;
         }
 
         .hero-sub {
-            font-size: 1.5rem;
-            opacity: 0.9;
+            font-size: 1.4rem;
+            opacity: 0.8;
             max-width: 800px;
-            margin-top: 20px;
+            margin: 20px auto 40px;
             color: var(--text-light);
+            font-weight: 300;
+        }
+
+        /* ボタンデザイン */
+        .hero-btns {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
         }
 
         .btn-invite {
-            margin-top: 40px;
-            padding: 18px 50px;
-            background: linear-gradient(45deg, var(--primary-discord-blue), var(--secondary-dark-blue));
+            padding: 18px 45px;
+            background: var(--primary-discord-blue);
             color: white;
             text-decoration: none;
-            border-radius: 50px;
+            border-radius: 5px; /* 角を少し立たせて高級感を */
             font-weight: bold;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(88, 101, 242, 0.4);
+            transition: 0.3s;
             display: inline-flex;
             align-items: center;
             gap: 10px;
+            border: none;
+            cursor: pointer;
         }
 
         .btn-invite:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 15px 40px rgba(88, 101, 242, 0.6);
+            background: var(--secondary-dark-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(88, 101, 242, 0.5);
         }
 
-        /* セクション共通スタイル */
+        .btn-secondary {
+            padding: 18px 45px;
+            background: transparent;
+            color: var(--accent-cyan);
+            text-decoration: none;
+            border-radius: 5px;
+            border: 1px solid var(--accent-cyan);
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 255, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+        }
+
+        /* --- コンテンツセクション --- */
         .section {
-            padding: 100px 20px;
-            max-width: 1200px;
+            padding: 120px 20px;
+            max-width: 1100px;
             margin: 0 auto;
             text-align: center;
         }
 
         .section-title {
             font-family: 'Montserrat', sans-serif;
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: var(--text-light);
-            position: relative;
-            display: inline-block;
-        }
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 80%;
-            height: 4px;
-            background: var(--accent-cyan);
-            margin: 10px auto 0;
-            border-radius: 2px;
+            font-size: 2.8rem;
+            margin-bottom: 60px;
+            letter-spacing: 2px;
         }
 
-        .section-description {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            max-width: 800px;
-            margin: 20px auto 60px;
-        }
-
-        /* Features Section */
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
         }
 
         .feature-card {
             background: var(--card-bg);
-            padding: 40px;
-            border-radius: 15px;
+            padding: 50px 30px;
+            border-radius: 4px;
             border: 1px solid var(--border-color);
-            transition: all 0.4s ease;
-            text-align: left;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            transition: 0.4s;
             position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0,255,255,0.1) 0%, rgba(0,255,255,0) 70%);
-            transform: rotate(45deg);
-            transition: all 0.5s ease;
-            opacity: 0;
         }
 
         .feature-card:hover {
-            transform: translateY(-10px);
             border-color: var(--accent-cyan);
-            box-shadow: 0 15px 40px rgba(0, 255, 255, 0.2);
-        }
-        .feature-card:hover::before {
-            opacity: 1;
-            transform: rotate(0deg);
+            transform: translateY(-10px);
+            background: #1c1c21;
         }
 
         .feature-card i {
-            font-size: 3.5rem;
+            font-size: 3rem;
             color: var(--accent-cyan);
-            margin-bottom: 20px;
-            display: block;
-            text-align: center;
-            text-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
-            position: relative;
-            z-index: 1;
+            margin-bottom: 25px;
         }
 
         .feature-card h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.8rem;
-            margin-top: 0;
+            font-size: 1.5rem;
             margin-bottom: 15px;
-            color: var(--text-light);
-            text-align: center;
-            position: relative;
-            z-index: 1;
+            letter-spacing: 1px;
         }
 
         .feature-card p {
             color: var(--text-muted);
-            font-size: 1rem;
-            position: relative;
-            z-index: 1;
-            text-align: center;
+            font-size: 0.95rem;
+            line-height: 1.8;
         }
 
-        /* Footer */
         footer {
-            text-align: center;
-            padding: 50px;
-            font-size: 0.9rem;
-            color: var(--text-muted);
+            padding: 60px;
             border-top: 1px solid var(--border-color);
-            margin-top: 80px;
+            opacity: 0.6;
+            font-size: 0.85rem;
+            text-align: center;
         }
 
-        /* レスポンシブデザイン */
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 3rem;
-            }
-            .hero-sub {
-                font-size: 1.1rem;
-            }
-            .btn-invite {
-                padding: 12px 30px;
-                font-size: 1rem;
-            }
-            .section-title {
-                font-size: 2.2rem;
-            }
-            .section-description {
-                font-size: 1rem;
-            }
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-            .feature-card {
-                padding: 30px;
-            }
-            .feature-card i {
-                font-size: 3rem;
-            }
-            .feature-card h3 {
-                font-size: 1.5rem;
-            }
-        }
-
-        /* スクロールアニメーション用 */
         .fade-in {
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            transform: translateY(30px);
+            transition: 1s all ease-out;
         }
         .fade-in.active {
             opacity: 1;
@@ -269,98 +258,63 @@
 
 <header>
     <div class="hero-content">
+        <div class="main-symbol">
+            <div class="symbol-ring"></div>
+            <div class="pentagon-shape"></div>
+            <i class="fas fa-crown crown-icon"></i>
+        </div>
         <h1 class="hero-title">Royal Pentagon</h1>
         <p class="hero-sub">
-            Discordサーバーを、最高級のエンターテイメントハブへ昇華させます。<br>
-            洗練されたカジノゲームと、革新的なスマートトラッキングパネルを体験ください。
+            静寂を切り裂く、青い閃光。<br>
+            Discordサーバーを最高級のカジノラウンジへ変貌させる。
         </p>
-        <a href="YOUR_BOT_INVITE_LINK_HERE" class="btn-invite">
-            <i class="fab fa-discord"></i> Botをサーバーに招待する
-        </a>
+        <div class="hero-btns">
+            <a href="YOUR_BOT_INVITE_LINK" class="btn-invite">
+                <i class="fab fa-discord"></i> Botを招待
+            </a>
+            <a href="#features" class="btn-secondary">機能を見る</a>
+        </div>
     </div>
 </header>
 
-<div class="section">
-    <h2 class="section-title fade-in">Main Features</h2>
-    <p class="section-description fade-in">
-        Royal Pentagonが提供する、独自のカジノゲームと先進的な機能をご紹介します。
-    </p>
+<div class="section" id="features">
+    <h2 class="section-title fade-in">EXCELLENCE FEATURES</h2>
     <div class="features-grid">
         <div class="feature-card fade-in">
             <i class="fas fa-slot-machine"></i>
-            <h3>🎰 5-REEL ROYAL SLOT</h3>
-            <p>
-                豪華なアニメーションと緻密なペイアウト設定を備えた、本格的な5リールスロット。<br>
-                ジャックポットを狙い、一攫千金の夢を掴みましょう。
-            </p>
+            <h3>ROYAL SLOT</h3>
+            <p>5リールが生み出す無限の可能性。独自のアルゴリズムによる公平かつスリリングな配当体験。</p>
         </div>
         <div class="feature-card fade-in">
             <i class="fas fa-coins"></i>
-            <h3>🪙 COIN TOSS</h3>
-            <p>
-                シンプルながら奥深い「表か裏か」のコインフリップゲーム。<br>
-                直感を信じ、スリリングな倍々ゲームに挑戦してください。
-            </p>
-        </div>
-        <div class="feature-card fade-in">
-            <i class="fas fa-gem"></i>
-            <h3>💎 HOURLY ROULETTE</h3>
-            <p>
-                1時間に一度の特別なチャンス。幸運のルーレットを回して、豪華なボーナスを獲得。<br>
-                毎日ログインして、着実に資産を増やしましょう。
-            </p>
+            <h3>COIN STRATEGY</h3>
+            <p>運命を分ける2択。シンプルだからこそ、一瞬の判断が膨大な「草」を生み出す。</p>
         </div>
         <div class="feature-card fade-in">
             <i class="fas fa-sync-alt"></i>
-            <h3>🔄 SMART TRACKING PANEL</h3>
-            <p>
-                革新的な自動追尾機能。カジノパネルは30秒ごとにチャットの最下部へ移動。<br>
-                常に最新のゲーム体験を提供します。
-            </p>
+            <h3>SMART TRACKING</h3>
+            <p>30秒ごとにチャット最下部を自動確保。あなたのカジノパネルは常に「そこ」にある。</p>
         </div>
         <div class="feature-card fade-in">
-            <i class="fas fa-sack-dollar"></i>
-            <h3>💰 BALANCING & SHOP</h3>
-            <p>
-                あなたの資産は安全に管理されます。獲得したクレジットで、限定のロールや称号を購入可能。<br>
-                サーバーでの地位を確立しましょう。
-            </p>
-        </div>
-        <div class="feature-card fade-in">
-            <i class="fas fa-users-cog"></i>
-            <h3>⚙️ ADMIN TOOLS</h3>
-            <p>
-                管理者向けの強力な管理機能。パネルの設置やBotの挙動を簡単に制御。<br>
-                サーバー運営をサポートします。
-            </p>
+            <i class="fas fa-gem"></i>
+            <h3>VIP SYSTEM</h3>
+            <p>獲得した富で地位を築く。ショップ機能と連携し、サーバー内での特権をその手に。</p>
         </div>
     </div>
 </div>
 
 <footer>
-    &copy; 2026 Royal Pentagon Casino Bot. All rights reserved.<br>
-    Developed by [あなたの名前またはチーム名]
+    &copy; 2026 Royal Pentagon. All rights reserved.
 </footer>
 
 <script>
-    // スクロール時のフェードインアニメーション
-    document.addEventListener('DOMContentLoaded', () => {
-        const fadeInElements = document.querySelectorAll('.fade-in');
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, {
-            threshold: 0.1 // 10%見えたら発火
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('active');
         });
+    }, { threshold: 0.1 });
 
-        fadeInElements.forEach(element => {
-            observer.observe(element);
-        });
-    });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 </script>
 
 </body>
