@@ -303,6 +303,8 @@
         </div>
     </div>
 </div>
+
+
 <div class="section" style="background: rgba(255,255,255,0.02); border-radius: 20px;">
     <h2 class="section-title fade-in">HOW TO START</h2>
     <p class="section-description fade-in">わずか3ステップで、あなたのサーバーに最高級のカジノを導入できます。</p>
@@ -352,7 +354,106 @@
         </table>
     </div>
 </div>
+<div class="section" id="terms">
+    <h2 class="section-title fade-in">TERMS OF SERVICE</h2>
+    <div class="terms-container fade-in">
+        <div class="terms-content">
+            <div class="terms-scroll-area">
+                <h3>第1条（通貨の定義および禁止事項）</h3>
+                <p>当Bot内で使用される通貨「ぐへへ」および「草」は、当Bot内でのみ有効な数値であり、現実世界の現金、電子マネー（PayPay等）、ギフト券、商品等への換金性は一切ありません。仮想通貨を現実の金品と交換する行為（RMT）は、日本の法律に抵触する恐れがあるため、全面的に禁止します。発覚した場合は即座に利用停止措置を講じます。</p>
 
+                <h3>第2条（禁止事項）</h3>
+                <p>ユーザーは、Botの不具合の意図的な利用、マルチアカウントによる不正受給、運営の妨害行為を行ってはなりません。これらの行為が確認された場合、データの初期化またはアクセス禁止措置を行います。</p>
+
+                <h3>第3条（免責事項）</h3>
+                <p>当Botは娯楽を目的としたシミュレーターであり、実際の賭博を助長するものではありません。ユーザー間でのトラブル（通貨の貸し借り等）について、運営チームは一切の責任を負いません。また、システムの不具合により発生したいかなる損害についても賠償の責任を負わないものとします。</p>
+
+                <h3>第4条（データの取り扱い）</h3>
+                <p>サービス運営に必要な最低限の情報（ユーザーID等）を取得しますが、法令に基づく場合を除き、第三者に提供することはありません。</p>
+            </div>
+        </div>
+        <div class="law-notice">
+            <i class="fas fa-gavel"></i>
+            <p>Royal Pentagonは純粋なエンターテインメントを提供します。現実の賭博行為とは一切関係ありません。</p>
+        </div>
+    </div>
+</div>
+
+<style>
+/* 利用規約の追加スタイル */
+.terms-container {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 40px;
+    text-align: left;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.terms-container::before {
+    content: 'LAW';
+    position: absolute;
+    top: -20px;
+    right: -10px;
+    font-size: 8rem;
+    font-weight: 900;
+    color: rgba(0, 255, 255, 0.03);
+    z-index: 0;
+}
+
+.terms-content {
+    position: relative;
+    z-index: 1;
+}
+
+.terms-scroll-area {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 20px;
+}
+
+/* スクロールバーのカスタマイズ */
+.terms-scroll-area::-webkit-scrollbar {
+    width: 5px;
+}
+.terms-scroll-area::-webkit-scrollbar-track {
+    background: #000;
+}
+.terms-scroll-area::-webkit-scrollbar-thumb {
+    background: var(--accent-cyan);
+    border-radius: 10px;
+}
+
+.terms-content h3 {
+    color: var(--accent-cyan);
+    font-size: 1.1rem;
+    margin-top: 25px;
+    border-left: 3px solid var(--accent-cyan);
+    padding-left: 15px;
+}
+
+.terms-content p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 15px;
+}
+
+.law-notice {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: var(--accent-cyan);
+    font-weight: bold;
+    font-size: 0.85rem;
+}
+</style>
+    
 <style>
 /* 使用方法セクションのスタイル */
 .steps-container {
